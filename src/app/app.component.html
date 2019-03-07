@@ -1,21 +1,146 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- <form (ngSubmit)="onSubmit(f)" #f="ngForm"> -->
+        <form (ngSubmit)='onSubmit()' #f="ngForm">
+          <!-- <form #f="ngForm"> -->
+        <div 
+        id="userData" 
+        ngModelGroup="userData"
+        #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+            type="text" 
+            id="username" 
+            class="form-control"
+            ngModel
+            name="userName"
+            required
+            #userName="ngModel"
+            >
+            <span class="help-block" *ngIf="!userName.valid && userName.touched">please enter a valid user name</span> 
+          </div>
+         
+          <button class="btn btn-default" type="button" (click)="suggestUserName()">Suggest an Username</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input 
+            type="email" 
+            id="email" 
+            class="form-control"
+            ngModel
+            name="email"
+            required
+            email
+            #email="ngModel">
+          </div>
+          <div>
+              <span class="help-block" *ngIf="!email.valid && email.touched">
+                  Please enter a valid email
+               </span>
+          </div>
+        
+          
+        </div>
+        <div>
+            <span class="help-block" *ngIf="!userData.valid && userData.touched">please enter a valid user data</span>
+         </div>
+        <div ngModelGroup="userSecret">
+            <div  class="form-group" >
+                <label for="secret">Secret Questions</label>
+                <select 
+                id="secret" 
+                class="form-control"
+                [ngModel]="defaultValue"
+                name="secret"
+                required
+               >
+                  <option value="pet">Your first Pet?</option>
+                  <option value="teacher">Your first teacher?</option>
+                </select>
+              </div>
+              <!-- <div class="form-group">
+                  <label for="answer">Answer</label>
+                  <input 
+                  type="text"
+                  id="answer"
+                  class="form-control"
+                  ngModel
+                  name="answer"
+                  required
+            >
+              </div> -->
+              <div class="form-group">
+                <textarea
+                name="answer"
+                class="form-control"
+                rows="4"
+                [(ngModel)]="answer"
+                required
+                >
+                </textarea>
+              </div>
+        </div>
+       
+        <p>
+          Your reply : {{answer}}
+        </p>
+       
+            <div class="radio" *ngFor="let gender of genders">
+                <label>
+                  <input 
+                 
+                  type="radio"
+                  name="gender"
+                  [ngModel]='genders[0]'
+                  [value]='gender'
+                  required
+                  >
+                  {{gender}}
+                
+                </label>
+            </div>
+       
+        <button 
+        class="btn btn-primary" 
+        type="submit"
+        [disabled]="!f.valid"
+        
+        >Submit</button>
+        <button 
+        class="btn btn-primary" 
+        style="position:relative;left:50px;"
+        type="button"
+        (click)="reset()"
+        >
+        Reset
+      </button>
+    </form>
+    <!-- <button 
+        class="btn btn-primary" 
+        style="position:relative;top:20px;"
+        type="submit"
+        (click)="reset()"
+        >
+        Reset
+      </button> -->
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+          <h3>User Data</h3>
+          <p>UserName : {{user.userName}}</p>
+          <p>Email : {{user.email}}</p>
+          <p>SecretQuestion : Your first  {{user.secretQuestion}} </p>
+          <p>Answer : {{user.answer}}</p>
+          <p>Gender : {{user.gender}}</p>
+    </div>
+    
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
-<router-outlet></router-outlet>
+<router-outlet>
+
+</router-outlet>
